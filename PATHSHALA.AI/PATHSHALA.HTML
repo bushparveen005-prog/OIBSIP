@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pathshala AI — Study companion for competitive exams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens ---------- */
+:root {
+  --navy: #161B33;
+  --navy-soft: #232A52;
+  --cream: #F6F3EC;
+  --paper: #FFFFFF;
+  --gold: #C99A3F;
+  --teal: #2F6E68;
+  --ink: #1B1C22;
+  --ink-soft: #52566A;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, Segoe UI, sans-serif;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+
+  --radius: 4px;
+  --max-width: 1160px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.6rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: var(--cream);
+}
+
+.btn-primary:hover {
+  background: var(--navy-soft);
+}
+
+.btn-small {
+  padding: 0.6rem 1.2rem;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 0.9rem;
+}
+
+.btn-small:hover {
+  background: #b98d33;
+}
+
+.link-arrow {
+  font-weight: 600;
+  color: var(--teal);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(246, 243, 236, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(22, 27, 51, 0.1);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  padding-block: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+.logo span {
+  color: var(--gold);
+}
+
+.main-nav {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.main-nav a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.main-nav a:hover {
+  color: var(--navy);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  padding-block: var(--space-6) var(--space-5);
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.kicker {
+  color: var(--teal);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: var(--space-2);
+}
+
+.hero h1 {
+  font-size: clamp(2.1rem, 4vw, 3.1rem);
+  max-width: 16ch;
+  margin-bottom: var(--space-3);
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin-bottom: var(--space-4);
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+}
+
+.hero-stats {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(22, 27, 51, 0.12);
+  padding-top: var(--space-3);
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--navy);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  max-width: 16ch;
+}
+
+.hero-visual {
+  justify-self: center;
+  width: 100%;
+  max-width: 360px;
+}
+
+/* ---------- Section heads ---------- */
+.section-head {
+  max-width: 56ch;
+  margin-bottom: var(--space-5);
+}
+
+.section-head h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: var(--space-2);
+}
+
+.section-head p {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+
+.section-head.light h2,
+.section-head.light p {
+  color: var(--cream);
+}
+
+.section-head.light p {
+  opacity: 0.8;
+}
+
+/* ---------- Features ---------- */
+.features {
+  padding-block: var(--space-5);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.feature-card {
+  background: var(--paper);
+  border: 1px solid rgba(22, 27, 51, 0.1);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+}
+
+.feature-mark {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  margin-bottom: var(--space-2);
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: var(--space-1);
+}
+
+.feature-card p {
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+/* ---------- How it works ---------- */
+.how {
+  background: var(--navy);
+  padding-block: var(--space-6);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.timeline-step {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  border-top: 1px solid rgba(246, 243, 236, 0.15);
+  padding-top: var(--space-4);
+}
+
+.timeline-step:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.step-index {
+  flex-shrink: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.timeline-step h3 {
+  color: var(--cream);
+  font-size: 1.15rem;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-step p {
+  color: rgba(246, 243, 236, 0.75);
+  max-width: 52ch;
+}
+
+/* ---------- Testimonials ---------- */
+.testimonials {
+  padding-block: var(--space-5);
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.testimonial-card {
+  background: var(--paper);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.testimonial-card p {
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+
+.testimonial-card footer {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- CTA band ---------- */
+.cta-band {
+  background: var(--gold);
+  padding-block: var(--space-5);
+}
+
+.cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.cta-inner h2 {
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  max-width: 34ch;
+  color: var(--navy);
+}
+
+.cta-inner .btn-primary {
+  flex-shrink: 0;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--navy);
+  color: rgba(246, 243, 236, 0.85);
+  padding-top: var(--space-5);
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+
+.footer-logo {
+  color: var(--cream);
+  margin-bottom: var(--space-2);
+}
+
+.footer-brand p:last-child {
+  max-width: 32ch;
+  font-size: 0.92rem;
+  opacity: 0.75;
+}
+
+.footer-col h4 {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: var(--space-2);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-col a {
+  font-size: 0.92rem;
+  opacity: 0.85;
+}
+
+.footer-col a:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(246, 243, 236, 0.15);
+  padding-block: var(--space-3);
+  font-size: 0.85rem;
+  opacity: 0.65;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    order: -1;
+    max-width: 280px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-nav {
+    gap: var(--space-2);
+    order: 3;
+    width: 100%;
+  }
+
+  .main-nav a {
+    font-size: 0.88rem;
+  }
+
+  .hero {
+    padding-block: var(--space-4);
+  }
+
+  .hero-stats {
+    gap: var(--space-3);
+  }
+
+  .cta-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo">Pathshala<span>AI</span></a>
+    <nav class="main-nav">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#testimonials">Stories</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#signup" class="btn btn-small">Start free</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="kicker">For NIMCET, GATE and campus placement prep</p>
+        <h1>Study smarter for the exam that decides your next three years.</h1>
+        <p class="hero-sub">Pathshala AI reads your mock test results the way a good mentor would — it finds the three topics costing you the most marks, then builds tomorrow's practice around them.</p>
+        <div class="hero-actions">
+          <a href="#signup" class="btn btn-primary">Take a free diagnostic test</a>
+          <a href="#how-it-works" class="link-arrow">See how it works</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <p class="stat-num">42,000+</p>
+            <p class="stat-label">students practicing weekly</p>
+          </div>
+          <div class="stat">
+            <p class="stat-num">18%</p>
+            <p class="stat-label">average score lift in 6 weeks</p>
+          </div>
+          <div class="stat">
+            <p class="stat-num">6</p>
+            <p class="stat-label">exam boards supported</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 420 460" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="30" width="300" height="400" rx="6" fill="#F6F3EC" stroke="#161B33" stroke-width="2"/>
+          <line x1="70" y1="90" x2="270" y2="90" stroke="#161B33" stroke-width="2"/>
+          <line x1="70" y1="120" x2="230" y2="120" stroke="#161B33" stroke-width="1.5" opacity="0.5"/>
+          <line x1="70" y1="145" x2="250" y2="145" stroke="#161B33" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="86" cy="200" r="14" fill="none" stroke="#C99A3F" stroke-width="2.5"/>
+          <path d="M79 200 l5 6 12 -13" fill="none" stroke="#C99A3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="112" y1="200" x2="270" y2="200" stroke="#161B33" stroke-width="1.5" opacity="0.6"/>
+          <circle cx="86" cy="240" r="14" fill="none" stroke="#2F6E68" stroke-width="2.5"/>
+          <line x1="80" y1="234" x2="92" y2="246" stroke="#2F6E68" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="92" y1="234" x2="80" y2="246" stroke="#2F6E68" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="112" y1="240" x2="240" y2="240" stroke="#161B33" stroke-width="1.5" opacity="0.6"/>
+          <circle cx="86" cy="280" r="14" fill="none" stroke="#C99A3F" stroke-width="2.5"/>
+          <path d="M79 280 l5 6 12 -13" fill="none" stroke="#C99A3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="112" y1="280" x2="260" y2="280" stroke="#161B33" stroke-width="1.5" opacity="0.6"/>
+          <rect x="70" y="330" width="200" height="60" rx="4" fill="#161B33"/>
+          <text x="170" y="366" font-family="Inter, sans-serif" font-size="15" fill="#F6F3EC" text-anchor="middle">Next session: 4:30 PM</text>
+          <circle cx="330" cy="60" r="30" fill="#C99A3F" opacity="0.9"/>
+          <circle cx="360" cy="410" r="18" fill="#2F6E68" opacity="0.85"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Built around how you actually revise</h2>
+        <p>Not another video library. Pathshala AI works with the messy, late-night, one-topic-at-a-time way most students actually prepare.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <p class="feature-mark">Diagnose</p>
+          <h3>Weak-topic mapping</h3>
+          <p>Every mock test is broken down by concept, not just section, so you know it's recursion costing you marks — not "maths."</p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-mark">Practice</p>
+          <h3>Questions that adapt</h3>
+          <p>The next set of questions shifts toward what you got wrong, and eases off once you've shown you've actually got it.</p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-mark">Clarify</p>
+          <h3>Doubt chat, worked out</h3>
+          <p>Ask about a specific step in a solution and get a full walkthrough back, not just the final answer restated.</p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-mark">Compare</p>
+          <h3>Rank against your batch</h3>
+          <p>See where you stand against others prepping for the same exam this month, updated after every test you take.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="how">
+    <div class="wrap">
+      <div class="section-head light">
+        <h2>Four steps, repeated weekly</h2>
+        <p>The same loop your best-performing students already follow — Pathshala AI just runs it for you automatically.</p>
+      </div>
+      <ol class="timeline">
+        <li class="timeline-step">
+          <span class="step-index">1</span>
+          <div>
+            <h3>Take a diagnostic</h3>
+            <p>A short adaptive test finds your current standing across every topic in the syllabus.</p>
+          </div>
+        </li>
+        <li class="timeline-step">
+          <span class="step-index">2</span>
+          <div>
+            <h3>Get a weekly plan</h3>
+            <p>Pathshala AI schedules focused practice blocks around your three weakest areas.</p>
+          </div>
+        </li>
+        <li class="timeline-step">
+          <span class="step-index">3</span>
+          <div>
+            <h3>Practice with feedback</h3>
+            <p>Each question comes with an explanation, so mistakes turn into understanding right away.</p>
+          </div>
+        </li>
+        <li class="timeline-step">
+          <span class="step-index">4</span>
+          <div>
+            <h3>Review and re-test</h3>
+            <p>A short re-test confirms the gap has closed before the plan moves you on to the next topic.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Students who found the pattern in their own mistakes</h2>
+      </div>
+      <div class="testimonial-grid">
+        <blockquote class="testimonial-card">
+          <p>I kept assuming my problem was speed. Pathshala AI showed me it was actually three topics in DBMS I'd been avoiding for months.</p>
+          <footer>Ritika S. — final-year BCA, NIMCET aspirant</footer>
+        </blockquote>
+        <blockquote class="testimonial-card">
+          <p>The doubt chat is the closest thing I've had to a senior sitting next to me at 11 PM explaining a proof step by step.</p>
+          <footer>Arjun M. — GATE CS prep</footer>
+        </blockquote>
+        <blockquote class="testimonial-card">
+          <p>Seeing my rank move after every test kept me consistent in a way a study planner on paper never did.</p>
+          <footer>Fatima K. — campus placement prep</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="signup" class="cta-band">
+    <div class="wrap cta-inner">
+      <h2>Your next mock test could be the one that shows you what to fix.</h2>
+      <a href="#top" class="btn btn-primary">Take a free diagnostic test</a>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact" class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <p class="logo footer-logo">Pathshala<span>AI</span></p>
+      <p>An AI-guided practice companion for India's competitive entrance and placement exams.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#testimonials">Student stories</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@pathshala.ai">hello@pathshala.ai</a>
+      <a href="tel:+911234567890">+91 12345 67890</a>
+    </div>
+    <div class="footer-col">
+      <h4>Follow</h4>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">YouTube</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 Pathshala AI. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
