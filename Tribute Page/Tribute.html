@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Tribute to Ada Lovelace</title>
+  <style>
+    /* Global Styles & Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-light: #f7f5f0;     /* Cream white background */
+      --bg-dark: #2c2536;      /* Deep eggplant/plum background */
+      --text-dark: #222222;
+      --text-light: #ffffff;
+      --accent-color: #8c6d89;
+      --card-bg: #ffffff;
+      
+      /* Typography Rules */
+      --font-heading: 'Georgia', serif;
+      --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      line-height: 1.7;
+      color: var(--text-dark);
+      background-color: var(--bg-light);
+    }
+
+    /* Header Section */
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: var(--bg-light);
+    }
+
+    header h1 {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      color: var(--bg-dark);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    header p {
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    /* Image Container */
+    .hero-container {
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .image-caption {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Main Content Wrapper */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Biography Section (Light Background) */
+    .biography {
+      padding: 40px 0;
+    }
+
+    .biography h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--bg-dark);
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 8px;
+    }
+
+    .biography p {
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    /* Quote Block Section (Distinctly Styled) */
+    .quote-block {
+      background-color: #eae3d2;
+      border-left: 6px solid var(--accent-color);
+      padding: 30px;
+      margin: 40px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .quote-block blockquote {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--bg-dark);
+      margin-bottom: 10px;
+    }
+
+    .quote-block cite {
+      font-size: 0.95rem;
+      font-weight: bold;
+      display: block;
+      color: #555;
+    }
+
+    /* Timeline Section (Dark Background transition) */
+    .timeline-section {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      padding: 60px 20px;
+      margin-top: 60px;
+    }
+
+    .timeline-section h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .timeline {
+      max-width: 750px;
+      margin: 0 auto;
+      list-style-type: none;
+    }
+
+    .timeline-item {
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent-color);
+      transition: transform 0.2s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(5px);
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .timeline-year {
+      font-family: var(--font-heading);
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #dfcadb;
+      margin-bottom: 5px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: var(--bg-dark);
+      color: #aaa;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer a {
+      color: #dfcadb;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design Adjustments */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      .biography p {
+        text-align: left;
+      }
+      .quote-block {
+        padding: 20px;
+      }
+      .quote-block blockquote {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Ada Lovelace</h1>
+    <p>The Enchantress of Numbers and the First Computer Programmer</p>
+  </header>
+
+  <!-- Hero Image -->
+  <div class="hero-container">
+    <!-- Royalty-free portrait from Wikimedia Commons / Public Domain -->
+    <img class="hero-image" src="https://wikimedia.org" alt="Portrait painting of Ada Lovelace in a formal gown">
+    <div class="image-caption">Alfred Edward Chalon's iconic 1840 portrait painting of Ada Lovelace.</div>
+  </div>
+
+  <!-- Main Biography Section -->
+  <main class="container">
+    <section class="biography">
+      <h2>A Visionary Leap Into the Future</h2>
+      
+      <p>Born in London in 1815, Augusta Ada Byron was the sole legitimate child of the infamous Romantic poet Lord Byron and the mathematically gifted Lady Byron. Anxious that her daughter might inherit her father's unpredictable poetic temperament, Lady Byron rigidly steered Ada’s education toward rigorous logic, mathematics, and science. This unusual upbringing for a 19th-century noblewoman laid the groundwork for an intellectual legacy that would span centuries.</p>
+
+      <p>Ada's life shifted dramatically when she met Charles Babbage, a brilliant inventor and Lucasian Professor of Mathematics at Cambridge. Babbage introduced her to his prototypes for the Difference Engine, a mechanical calculator. Ada became deeply fascinated by both the machine and Babbage’s conceptual layout for a far more complex device: the Analytical Engine, designed to handle multi-layered algebraic formulations.</p>
+
+      <p>In 1842, Ada undertook the task of translating a French transcript covering Babbage's Analytical Engine written by mathematician Luigi Menabrea. She did not merely translate the work; she expanded it with an extensive series of personal annotations labeled "Notes." Within these additions lay a precise step-by-step procedure calculated by the machine to compute a sequence of Bernoulli numbers—widely celebrated as the world's first complete computer algorithm.</p>
+
+      <p>Lovelace possessed a distinct perspective she termed "poetical science." While Babbage viewed his engine strictly as a mechanical engine meant to manipulate numeric values, Ada recognized that if numbers could represent symbolic entities like musical notes, artistic shapes, or text syntax, the machine could manipulate non-numerical concepts. Her work foresaw the versatile capabilities of modern computing infrastructure over a century before it materialized.</p>
+    </section>
+
+    <!-- Styled Quote Block -->
+    <section class="quote-block">
+      <blockquote>
+        "The Analytical Engine weaves algebraic patterns just as the Jacquard loom weaves flowers and leaves."
+      </blockquote>
+      <cite>— Ada Lovelace, Note A, 1843</cite>
+    </section>
+  </main>
+
+  <!-- Key Achievements Timeline (Transition to Dark Background Color) -->
+  <section class="timeline-section">
+    <h2>Timeline of Achievements</h2>
+    <ol class="timeline">
+      <li class="timeline-item">
+        <div class="timeline-year">1815</div>
+        <p>Born in London, England, to the famous poet Lord Byron and Anne Isabella Milbanke.</p>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-year">1833</div>
+        <p>Introduced to Charles Babbage by her tutor Mary Somerville, sparking a lifelong scientific partnership.</p>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-year">1835</div>
+        <p>Marries William King-Noel, becoming the Countess of Lovelace three years later.</p>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-year">1843</div>
+        <p>Publishes her translation and extensive "Notes" on the Analytical Engine, laying out the first computer program details.</p>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-year">1980</div>
+        <p>Posthumously honored by the United States Department of Defense, naming the high-level programming language 'Ada' after her.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Read more about this extraordinary visionary on her <a href="https://wikipedia.org" target="_blank">Wikipedia Profile</a>.</p>
+  </footer>
+
+</body>
+</html>
