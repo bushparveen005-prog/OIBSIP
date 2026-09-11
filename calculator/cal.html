@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanilla JavaScript Calculator</title>
+  <style>
+    :root {
+      --bg-color: #1e1e24;
+      --calc-bg: #0f0f12;
+      --display-bg: #2a2a35;
+      --text-color: #ffffff;
+      --btn-num: #3a3a4a;
+      --btn-op: #ff9f0a;
+      --btn-util: #5e5e6e;
+      --btn-hover: #505064;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: var(--bg-color);
+    }
+
+    .calculator {
+      width: 320px;
+      background-color: var(--calc-bg);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .display {
+      background-color: var(--display-bg);
+      color: var(--text-color);
+      text-align: right;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+
+    .display .previous {
+      font-size: 0.9rem;
+      color: #aaa;
+      min-height: 20px;
+    }
+
+    .display .current {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      padding: 18px 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: var(--text-color);
+      transition: background-color 0.1s ease;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .number {
+      background-color: var(--btn-num);
+    }
+
+    .operator {
+      background-color: var(--btn-op);
+    }
+
+    .operator:hover {
+      background-color: #e08b08;
+    }
+
+    .utility {
+      background-color: var(--btn-util);
+    }
+
+    button:hover:not(.operator) {
+      background-color: var(--btn-hover);
+    }
+
+    .zero {
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <div class="display">
+      <div class="previous" id="previous-operand"></div>
+      <div class="current" id="current-operand">0</div>
+    </div>
+    <div class="buttons" id="btn-container">
+      <button class="utility" data-type="clear">C</button>
+      <button class="utility" data-type="backspace">&larr;</button>
+      <button class="utility" data-type="operator" data-value="/">÷</button>
+      <button class="operator" data-type="operator" data-value="*">&times;</button>
+      
+      <button class="number" data-type="number">7</button>
+      <button class="number" data-type="number">8</button>
+      <button class="number" data-type="number">9</button>
+      <button class="operator" data-type="operator" data-value="-">&minus;</button>
+      
+      <button class="number" data-type="number">4</button>
+      <button class="number" data-type="number">5</button>
+      <button class="number" data-type="number">6</button>
+      <button class="operator" data-type="operator" data-value="+">+</button>
+      
+      <button class="number" data-type="number">1</button>
+      <button class="number" data-type="number">2</button>
+      <button class="number" data-type="number">3</button>
+      <button class="operator" data-type="equals">=</button>
+      
+      <button class="number zero" data-type="number">0</button>
+      <button class="number" data-type="decimal">.</button>
+    </div>
+  </div>
+
+  <script>
+    // State management variables
+    let currentInput = '0';
+    let previousInput = '';
+    let selectedOperator = null;
+    let shouldResetDisplay = false;
+
+    // DOM Elements
+    const currentDisplay = document.getElementById('current-operand');
+    const previousDisplay = document.getElementById('previous-operand');
+    const buttonContainer = document.getElementById('btn-container');
+
+    // Event Delegation for modern event listening
+    buttonContainer.addEventListener('click', (e) => {
+      if (!e.target.matches('button')) return;
+
+      const button = e.target;
+      const type = button.dataset.type;
+      const value = button.dataset.value || button.innerText;
+
+      switch (type) {
+        case 'number':
+          appendNumber(value);
+          break;
+        case 'decimal':
+          appendDecimal();
+          break;
+        case 'operator':
+          handleOperator(value);
+          break;
+        case 'equals':
+          evaluate();
+          break;
+        case 'clear':
+          clearAll();
+          break;
+        case 'backspace':
+          handleBackspace();
+          break;
+      }
+      updateDisplay();
+    });
+
+    function appendNumber(num) {
+      if (currentInput === '0' || shouldResetDisplay || currentInput === 'Error') {
+        currentInput = num;
+        shouldResetDisplay = false;
+      } else {
+        currentInput += num;
+      }
+    }
+
+    function appendDecimal() {
+      if (shouldResetDisplay || currentInput === 'Error') {
+        currentInput = '0.';
+        shouldResetDisplay = false;
+        return;
+      }
+      if (!currentInput.includes('.')) {
+        currentInput += '.';
+      }
+    }
+
+    function handleOperator(op) {
+      if (currentInput === 'Error') return;
+
+      // Enables chaining multiple operations sequentiality
+      if (selectedOperator && !shouldResetDisplay) {
+        evaluate();
+      }
+
+      previousInput = currentInput;
+      selectedOperator = op;
+      shouldResetDisplay = true;
+    }
+
+    function evaluate() {
+      if (!selectedOperator || shouldResetDisplay || currentInput === 'Error') return;
+
+      const prev = parseFloat(previousInput);
+      const current = parseFloat(currentInput);
+      let result = 0;
+
+      switch (selectedOperator) {
+        case '+':
+          result = prev + current;
+          break;
+        case '-':
+          result = prev - current;
+          break;
+        case '*':
+          result = prev * current;
+          break;
+        case '/':
+          if (current === 0) {
+            currentInput = 'Error';
+            previousInput = '';
+            selectedOperator = null;
+            shouldResetDisplay = true;
+            return;
+          }
+          result = prev / current;
+          break;
+        default:
+          return;
+      }
+
+      // Format result to prevent floating-point layout overflows (e.g., 0.1 + 0.2)
+      currentInput = parseFloat(result.toFixed(10)).toString();
+      previousInput = '';
+      selectedOperator = null;
+      shouldResetDisplay = true;
+    }
+
+    function handleBackspace() {
+      if (currentInput === 'Error' || shouldResetDisplay) {
+        clearAll();
+        return;
+      }
+      if (currentInput.length > 1) {
+        currentInput = currentInput.slice(0, -1);
+      } else {
+        currentInput = '0';
+      }
+    }
+
+    function clearAll() {
+      currentInput = '0';
+      previousInput = '';
+      selectedOperator = null;
+      shouldResetDisplay = false;
+    }
+
+    function updateDisplay() {
+      currentDisplay.innerText = currentInput;
+      
+      if (selectedOperator && previousInput !== '') {
+        let opSymbol = selectedOperator;
+        if (selectedOperator === '*') opSymbol = '×';
+        if (selectedOperator === '/') opSymbol = '÷';
+        previousDisplay.innerText = `${previousInput} ${opSymbol}`;
+      } else {
+        previousDisplay.innerText = '';
+      }
+    }
+  </script>
+</body>
+</html>
