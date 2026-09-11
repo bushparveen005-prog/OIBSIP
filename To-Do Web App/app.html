@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modular To-Do Workspace</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <h1>Task Workspace</h1>
+    
+    <!-- Input Form Area -->
+    <div class="input-group">
+      <input type="text" id="task-input" placeholder="What needs to be done?" autocomplete="off">
+      <button id="add-task-btn">Add Task</button>
+    </div>
+
+    <!-- Pending Tasks Section -->
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Pending Tasks</h2>
+        <span class="counter" id="pending-counter">0 pending</span>
+      </div>
+      <ul class="task-list" id="pending-list"></ul>
+    </div>
+
+    <!-- Completed Tasks Section -->
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Completed Tasks</h2>
+        <span class="counter" id="completed-counter">0 completed</span>
+      </div>
+      <ul class="task-list" id="completed-list"></ul>
+    </div>
+  </div>
+
+  <!-- External App Logic Implementation -->
+  <script src="app.js"></script>
+</body>
+</html>
